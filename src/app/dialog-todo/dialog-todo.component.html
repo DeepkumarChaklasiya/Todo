@@ -4,10 +4,16 @@
     <mat-form-field appearance="outline">
       <mat-label>Task</mat-label>
       <input formControlName="task" matInput placeholder="Task" />
+      <mat-error *ngIf="toDoForm.get('task').invalid">{{
+        "You must enter a value"
+      }}</mat-error>
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>Description</mat-label>
       <input formControlName="description" matInput placeholder="Description" />
+      <mat-error *ngIf="toDoForm.get('description').invalid">{{
+        "You must enter a value"
+      }}</mat-error>
     </mat-form-field>
   </form>
 </div>
@@ -18,6 +24,7 @@
     mat-raised-button
     color="primary"
     (click)="addTask()"
+    [disabled]="toDoForm.invalid"
   >
     {{ btnName }}
   </button>

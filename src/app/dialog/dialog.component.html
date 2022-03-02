@@ -4,9 +4,15 @@
     <mat-form-field appearance="outline">
       <mat-label>First Name</mat-label>
       <input formControlName="firstName" matInput placeholder="First Name" />
+      <mat-error *ngIf="userForm.get('firstName').invalid">{{
+        "You must enter a value"
+      }}</mat-error>
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>Last Name</mat-label>
+      <mat-error *ngIf="userForm.get('lastName').invalid">{{
+        "You must enter a value"
+      }}</mat-error>
       <input formControlName="lastName" matInput placeholder="Last Name" />
     </mat-form-field>
     <mat-form-field appearance="outline">
@@ -17,6 +23,9 @@
         placeholder="Email"
         autocomplete="off"
       />
+      <mat-error *ngIf="userForm.get('email').invalid">{{
+        getErrorMessage()
+      }}</mat-error>
     </mat-form-field>
   </form>
 </div>
@@ -27,6 +36,7 @@
     mat-raised-button
     color="primary"
     (click)="addUser()"
+    [disabled]="userForm.invalid"
   >
     {{ btnName }}
   </button>

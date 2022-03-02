@@ -1,56 +1,73 @@
 <div style="margin: 10px">
   <button
-    mat-raised-button
-    style="float: right; margin: 10px; border: 2px solid black"
+    mat-icon-button
+    style="float: right; margin: 10px"
     (click)="addUser()"
   >
-    Add User
+    <mat-icon>person_add</mat-icon>
   </button>
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-    <ng-container matColumnDef="Id">
-      <th mat-header-cell *matHeaderCellDef>Id</th>
-      <td mat-cell *matCellDef="let element">
-        {{ element.id
-        }}<a
-          fxFlexFill
-          [routerLink]="'/' + element.id"
-          class="mat-row-link"
-        ></a>
-      </td>
-    </ng-container>
+  <div
+    *ngIf="users && users.length == 0; else elseBlock"
+    style="padding-top: 200px; text-align: center"
+  >
+    <h1>No User :( Click on the + to add user</h1>
+  </div>
+  <ng-template #elseBlock>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <ng-container matColumnDef="Index">
+        <th mat-header-cell *matHeaderCellDef>Index</th>
+        <td mat-cell *matCellDef="let element; let i = index">
+          {{ i + 1
+          }}<a
+            fxFlexFill
+            [routerLink]="'/' + element.id"
+            class="mat-row-link"
+          ></a>
+        </td>
+      </ng-container>
 
-    <ng-container matColumnDef="FirstName">
-      <th mat-header-cell *matHeaderCellDef>FirstName</th>
-      <td mat-cell *matCellDef="let element">{{ element.firstName }}</td>
-    </ng-container>
+      <ng-container matColumnDef="FirstName">
+        <th mat-header-cell *matHeaderCellDef>FirstName</th>
+        <td mat-cell *matCellDef="let element">{{ element.firstName }}</td>
+      </ng-container>
 
-    <ng-container matColumnDef="LastName">
-      <th mat-header-cell *matHeaderCellDef>LastName</th>
-      <td mat-cell *matCellDef="let element">{{ element.lastName }}</td>
-    </ng-container>
+      <ng-container matColumnDef="LastName">
+        <th mat-header-cell *matHeaderCellDef>LastName</th>
+        <td mat-cell *matCellDef="let element">{{ element.lastName }}</td>
+      </ng-container>
 
-    <ng-container matColumnDef="Email">
-      <th mat-header-cell *matHeaderCellDef>Email</th>
-      <td mat-cell *matCellDef="let element">{{ element.email }}</td>
-    </ng-container>
+      <ng-container matColumnDef="Email">
+        <th mat-header-cell *matHeaderCellDef>Email</th>
+        <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+      </ng-container>
 
-    <ng-container matColumnDef="Action">
-      <th mat-header-cell *matHeaderCellDef>Action</th>
-      <td mat-cell *matCellDef="let element">
-        <button mat-stroked-button color="primary" (click)="editUser(element)">
-          Edit
-        </button>
-        <button
-          mat-stroked-button
-          color="warn"
-          (click)="deleteUser(element.id)"
-        >
-          Delete
-        </button>
-      </td>
-    </ng-container>
+      <ng-container matColumnDef="Action">
+        <th mat-header-cell *matHeaderCellDef>Action</th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button color="primary" (click)="editUser(element)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            color="warn"
+            (click)="deleteUser(element.id, myDialog)"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-  </table>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </ng-template>
 </div>
+<ng-template #myDialog>
+  <h2 matDialogTitle>Alert !</h2>
+  <mat-dialog-content>
+    <p>You can't delete this user bcz User has some tasks.</p>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button matDialogClose color="primary">Dismiss</button>
+  </mat-dialog-actions>
+</ng-template>

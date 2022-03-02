@@ -1,0 +1,9 @@
+review point
+
+Naming convention of component ( example : add/edit dialog box )
+Manage subscription ( Take referance of subscription and destroy on component lifecycle (ngDestroy) , Use take-1 )
+Instead of using constructor, use ngOnInit
+Remove all unused and duplicate variable
+Give meaning full name of variable as well as function
+enhancement - implement user side cache to avoid more api calls
+combine add-edit function to remove repetitive code

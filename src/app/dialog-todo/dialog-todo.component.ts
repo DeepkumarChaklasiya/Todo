@@ -2,7 +2,6 @@ import { Component, OnInit, Inject } from "@angular/core";
 import { FormGroup, FormBuilder, Validators, Form } from "@angular/forms";
 import { ApiService } from "shared/api.service";
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
-import { DialogDeleteUserComponent } from "../dialog-delete-user/dialog-delete-user.component";
 @Component({
   selector: "app-dialog-todo",
   templateUrl: "./dialog-todo.component.html",
@@ -34,39 +33,21 @@ export class DialogTodoComponent implements OnInit {
   addTask() {
     this.toDoForm.value.userid = this.editData.userid;
     if (!this.editData.id) {
-      if (this.toDoForm.valid) {
-        this.api
-          .addTask(this.toDoForm.value)
-          .subscribe((data) => console.log(data));
-        this.toDoForm.reset();
-        this.dialogRef.close("save");
-      } else {
-        this.dialog.open(DialogDeleteUserComponent, {
-          width: "30%",
-          data: {
-            msg: "Plz fill correct information",
-          },
-        });
-      }
+      this.api
+        .addTask(this.toDoForm.value)
+        .subscribe((data) => console.log(data));
+      this.toDoForm.reset();
+      this.dialogRef.close("save");
     } else {
       this.toDoForm.value.userid = this.editData.userid;
       this.editTask();
     }
   }
   editTask() {
-    if (this.toDoForm.valid) {
-      this.api
-        .editTask(this.toDoForm.value, this.editData.id)
-        .subscribe((data) => console.log(data));
-      this.toDoForm.reset();
-      this.dialogRef.close("edit");
-    } else {
-      this.dialog.open(DialogDeleteUserComponent, {
-        width: "30%",
-        data: {
-          msg: "Plz fill correct information",
-        },
-      });
-    }
+    this.api
+      .editTask(this.toDoForm.value, this.editData.id)
+      .subscribe((data) => console.log(data));
+    this.toDoForm.reset();
+    this.dialogRef.close("edit");
   }
 }

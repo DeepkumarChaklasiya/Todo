@@ -1,8 +1,7 @@
 import { Component, Inject, OnInit } from "@angular/core";
-import { FormGroup, FormBuilder, Validators, Form } from "@angular/forms";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ApiService } from "shared/api.service";
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
-import { DialogDeleteUserComponent } from "../dialog-delete-user/dialog-delete-user.component";
 @Component({
   selector: "app-dialog",
   templateUrl: "./dialog.component.html",
@@ -23,7 +22,7 @@ export class DialogComponent implements OnInit {
     this.userForm = this.formBuilder.group({
       firstName: ["", Validators.required],
       lastName: ["", Validators.required],
-      email: ["", Validators.required],
+      email: ["", [Validators.required, Validators.email]],
     });
 
     if (this.editData) {
@@ -35,38 +34,27 @@ export class DialogComponent implements OnInit {
   }
   addUser() {
     if (!this.editData) {
-      if (this.userForm.valid) {
-        this.api
-          .addUser(this.userForm.value)
-          .subscribe((user) => console.log(user));
-        this.userForm.reset();
-        this.dialogRef.close("save");
-      } else {
-        this.dialog.open(DialogDeleteUserComponent, {
-          width: "30%",
-          data: {
-            msg: "Plz fill correct information",
-          },
-        });
-      }
+      this.api
+        .addUser(this.userForm.value)
+        .subscribe((user) => console.log(user));
+      this.userForm.reset();
+      this.dialogRef.close("save");
     } else {
       this.editUser();
     }
   }
   editUser() {
-    if (this.userForm.valid) {
-      this.api
-        .editUser(this.userForm.value, this.editData.id)
-        .subscribe((user) => console.log(user));
-      this.userForm.reset();
-      this.dialogRef.close("edit");
-    } else {
-      this.dialog.open(DialogDeleteUserComponent, {
-        width: "30%",
-        data: {
-          msg: "Plz fill correct information",
-        },
-      });
-    }
+    this.api
+      .editUser(this.userForm.value, this.editData.id)
+      .subscribe((user) => console.log(user));
+    this.userForm.reset();
+    this.dialogRef.close("edit");
+  }
+  getErrorMessage() {
+    return this.userForm.get("email").hasError("required")
+      ? "You must enter a value"
+      : this.userForm.get("email").hasError("email")
+      ? "Not a valid email"
+      : "";
   }
 }

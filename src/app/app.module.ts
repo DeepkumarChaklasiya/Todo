@@ -17,8 +17,7 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 import { TaskDashboardComponent } from "./task-dashboard/task-dashboard.component";
 import { DialogTodoComponent } from "./dialog-todo/dialog-todo.component";
 import { DialogConfirmationComponent } from "./dialog-confirmation/dialog-confirmation.component";
-import { DialogDeleteUserComponent } from "./dialog-delete-user/dialog-delete-user.component";
-
+import { MatSnackBarModule } from "@angular/material/snack-bar";
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +26,6 @@ import { DialogDeleteUserComponent } from "./dialog-delete-user/dialog-delete-us
     TaskDashboardComponent,
     DialogTodoComponent,
     DialogConfirmationComponent,
-    DialogDeleteUserComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,6 +41,7 @@ import { DialogDeleteUserComponent } from "./dialog-delete-user/dialog-delete-us
     MatInputModule,
     MatIconModule,
     MatToolbarModule,
+    MatSnackBarModule,
   ],
   providers: [],
   entryComponents: [
@@ -52,7 +51,6 @@ import { DialogDeleteUserComponent } from "./dialog-delete-user/dialog-delete-us
     DialogTodoComponent,
     TaskDashboardComponent,
     DialogConfirmationComponent,
-    DialogDeleteUserComponent,
   ],
   bootstrap: [AppComponent],
 })
