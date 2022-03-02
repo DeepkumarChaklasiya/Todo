@@ -1,0 +1,42 @@
+{
+  "user": [
+    {
+      "id": 1,
+      "firstName": "Bhavik",
+      "lastName": "Mulia",
+      "email": "bhavik.mulia@searce.com"
+    },
+    {
+      "firstName": "Gaurav",
+      "lastName": "Chauhan",
+      "email": "Gaurav.chauhan@searce.com",
+      "id": 2
+    },
+    {
+      "id": 3,
+      "firstName": "Nirav",
+      "lastName": "Tilala",
+      "email": "nirav.tilala@searce.com"
+    }
+  ],
+  "todo": [
+    {
+      "id": 1,
+      "userid": 1,
+      "task": "Todo 1",
+      "description": "Todo 1 Description"
+    },
+    {
+      "id": 2,
+      "userid": 1,
+      "task": "Todo 2",
+      "description": "Todo 2 Description"
+    },
+    {
+      "id": 3,
+      "userid": 2,
+      "task": "Todo 3",
+      "description": "Todo 3 Description"
+    }
+  ]
+}
