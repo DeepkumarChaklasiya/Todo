@@ -2,7 +2,7 @@
   <button
     mat-icon-button
     style="float: right; margin: 10px"
-    (click)="addUser()"
+    (click)="addEditUser()"
   >
     <mat-icon>person_add</mat-icon>
   </button>
@@ -13,14 +13,14 @@
     <h1>No User :( Click on the + to add user</h1>
   </div>
   <ng-template #elseBlock>
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <table mat-table [dataSource]="users" class="mat-elevation-z8">
       <ng-container matColumnDef="Index">
         <th mat-header-cell *matHeaderCellDef>Index</th>
         <td mat-cell *matCellDef="let element; let i = index">
           {{ i + 1
           }}<a
             fxFlexFill
-            [routerLink]="'/' + element.id"
+            [routerLink]="element.id + '/task'"
             class="mat-row-link"
           ></a>
         </td>
@@ -44,7 +44,11 @@
       <ng-container matColumnDef="Action">
         <th mat-header-cell *matHeaderCellDef>Action</th>
         <td mat-cell *matCellDef="let element">
-          <button mat-icon-button color="primary" (click)="editUser(element)">
+          <button
+            mat-icon-button
+            color="primary"
+            (click)="addEditUser(element)"
+          >
             <mat-icon>edit</mat-icon>
           </button>
           <button

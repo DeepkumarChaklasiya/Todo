@@ -1,22 +1,23 @@
 import { Component, Inject, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { ApiService } from "shared/api.service";
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
+import { ApiService } from "src/shared/api.service";
+import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
+
 @Component({
-  selector: "app-dialog",
-  templateUrl: "./dialog.component.html",
-  styleUrls: ["./dialog.component.css"],
+  selector: "app-add-edit-users",
+  templateUrl: "./add-edit-users.component.html",
+  styleUrls: ["./add-edit-users.component.css"],
 })
-export class DialogComponent implements OnInit {
-  userForm!: FormGroup;
-  btnName: string = "Add";
+export class AddEditUsersComponent implements OnInit {
   constructor(
     private api: ApiService,
     private formBuilder: FormBuilder,
-    @Inject(MAT_DIALOG_DATA) public editData: any,
-    private dialogRef: MatDialogRef<DialogComponent>,
-    private dialog: MatDialog
+    private dialogRef: MatDialogRef<AddEditUsersComponent>,
+    @Inject(MAT_DIALOG_DATA) public editData: any
   ) {}
+
+  userForm: FormGroup;
+  btnName: string = "Add";
 
   ngOnInit(): void {
     this.userForm = this.formBuilder.group({
@@ -24,7 +25,6 @@ export class DialogComponent implements OnInit {
       lastName: ["", Validators.required],
       email: ["", [Validators.required, Validators.email]],
     });
-
     if (this.editData) {
       this.btnName = "Edit";
       this.userForm.controls["firstName"].setValue(this.editData.firstName);
@@ -32,6 +32,7 @@ export class DialogComponent implements OnInit {
       this.userForm.controls["email"].setValue(this.editData.email);
     }
   }
+
   addUser() {
     if (!this.editData) {
       this.api
@@ -43,6 +44,7 @@ export class DialogComponent implements OnInit {
       this.editUser();
     }
   }
+
   editUser() {
     this.api
       .editUser(this.userForm.value, this.editData.id)
@@ -50,6 +52,7 @@ export class DialogComponent implements OnInit {
     this.userForm.reset();
     this.dialogRef.close("edit");
   }
+
   getErrorMessage() {
     return this.userForm.get("email").hasError("required")
       ? "You must enter a value"

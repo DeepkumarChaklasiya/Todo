@@ -9,24 +9,24 @@ import { MatTableModule } from "@angular/material/table";
 import { MatButtonModule } from "@angular/material/button";
 import { MatDialogModule } from "@angular/material/dialog";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { DialogComponent } from "./dialog/dialog.component";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatIconModule } from "@angular/material/icon";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { TaskDashboardComponent } from "./task-dashboard/task-dashboard.component";
-import { DialogTodoComponent } from "./dialog-todo/dialog-todo.component";
-import { DialogConfirmationComponent } from "./dialog-confirmation/dialog-confirmation.component";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
+import { AddEditUsersComponent } from "./add-edit-users/add-edit-users.component";
+import { AddEditTasksComponent } from "./add-edit-tasks/add-edit-tasks.component";
+
 @NgModule({
   declarations: [
     AppComponent,
     UserDashboardComponent,
-    DialogComponent,
     TaskDashboardComponent,
-    DialogTodoComponent,
-    DialogConfirmationComponent,
+    AddEditUsersComponent,
+    AddEditTasksComponent,
   ],
+
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -43,15 +43,17 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
     MatToolbarModule,
     MatSnackBarModule,
   ],
+
   providers: [],
+
   entryComponents: [
     AppComponent,
     UserDashboardComponent,
-    DialogComponent,
-    DialogTodoComponent,
     TaskDashboardComponent,
-    DialogConfirmationComponent,
+    AddEditUsersComponent,
+    AddEditTasksComponent,
   ],
+
   bootstrap: [AppComponent],
 })
 export class AppModule {}

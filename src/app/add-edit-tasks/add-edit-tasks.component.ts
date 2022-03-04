@@ -1,35 +1,36 @@
 import { Component, OnInit, Inject } from "@angular/core";
-import { FormGroup, FormBuilder, Validators, Form } from "@angular/forms";
-import { ApiService } from "shared/api.service";
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { ApiService } from "src/shared/api.service";
+import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
+
 @Component({
-  selector: "app-dialog-todo",
-  templateUrl: "./dialog-todo.component.html",
-  styleUrls: ["./dialog-todo.component.css"],
+  selector: "app-add-edit-tasks",
+  templateUrl: "./add-edit-tasks.component.html",
+  styleUrls: ["./add-edit-tasks.component.css"],
 })
-export class DialogTodoComponent implements OnInit {
-  toDoForm!: FormGroup;
-  btnName: string = "Add";
+export class AddEditTasksComponent implements OnInit {
   constructor(
     private api: ApiService,
     private formBuilder: FormBuilder,
-    @Inject(MAT_DIALOG_DATA) public editData: any,
-    private dialogRef: MatDialogRef<DialogTodoComponent>,
-    private dialog: MatDialog
+    private dialogRef: MatDialogRef<AddEditTasksComponent>,
+    @Inject(MAT_DIALOG_DATA) public editData: any
   ) {}
+
+  toDoForm: FormGroup;
+  btnName: string = "Add";
 
   ngOnInit(): void {
     this.toDoForm = this.formBuilder.group({
       task: ["", Validators.required],
       description: ["", Validators.required],
     });
-
     if (this.editData.id) {
       this.btnName = "Edit";
       this.toDoForm.controls["task"].setValue(this.editData.task);
       this.toDoForm.controls["description"].setValue(this.editData.description);
     }
   }
+
   addTask() {
     this.toDoForm.value.userid = this.editData.userid;
     if (!this.editData.id) {
@@ -43,6 +44,7 @@ export class DialogTodoComponent implements OnInit {
       this.editTask();
     }
   }
+
   editTask() {
     this.api
       .editTask(this.toDoForm.value, this.editData.id)
